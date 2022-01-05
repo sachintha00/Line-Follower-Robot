@@ -7,10 +7,12 @@
 #define sensor6 = A5
 
 //define motors
-#define rightMotor_R 0
-#define rightMotor_L 0
-#define leftMotor_R 0
-#define leftMotor_L 0
+#define rightMotor_ena 5
+#define rightMotor_R 6
+#define rightMotor_L 7
+#define leftMotor_R 8
+#define leftMotor_L 9
+#define leftMotor_enb 10
 
 void setup() {
   // put your setup code here, to run once:
