@@ -14,8 +14,15 @@
 #define leftMotor_L 9
 #define leftMotor_enb 10
 
+//for sensors values
+int senvalues[6]={0,0,0,0,0,0};
+
 void setup() {
-  // put your setup code here, to run once:
+//  for reading analog inputs
+  Serial.begin(9600);
+  for(int i=0; i<6; i++){
+    pinMode("A"+i,INPUT);
+  }
 
 }
 
