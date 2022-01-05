@@ -51,18 +51,24 @@ void loop() {
     Serial.println("white color");
     Serial.println(senvalues[0]); //0
     digitalWrite(13, HIGH);
+    motorControl(125,125);
   }
   else {
     Serial.println("black color");
     Serial.println(digitalRead(senvalues[0])); //1
     digitalWrite(13, LOW);
+    motorControl(0,0);
   }
 
 }
 
 void motorControl(int rSpeed, int lSpeed){
+  analogWrite(rightMotor_ena,rSpeed);
+  analogWrite(leftMotor_enb,lSpeed);
+
   digitalWrite(rightMotor_R,HIGH);
   digitalWrite(rightMotor_L,LOW);
+  
   digitalWrite(leftMotor_R,HIGH);
-  digitalWrite(leftMotor_L,HIGH);
+  digitalWrite(leftMotor_L,LOW);
 }
