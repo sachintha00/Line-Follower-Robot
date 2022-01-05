@@ -27,6 +27,8 @@ void setup() {
   pinMode(sensor5, INPUT);
   pinMode(sensor6, INPUT);
 
+  pinMode(13,OUTPUT);
+
 }
 
 void loop() {
@@ -36,18 +38,17 @@ void loop() {
   senvalues[3] = digitalRead(sensor4);
   senvalues[4] = digitalRead(sensor5);
   senvalues[5] = digitalRead(sensor6);
-  Serial.println(senvalues[0]);
 
-//  if (senvalues[0] == LOW && senvalues[1]) == LOW && senvalues[2] == LOW &&
-//    senvalues[3] == LOW && senvalues[4]) == LOW && senvalues[5] == LOW) {
-//    Serial.println("white color");
-//    Serial.println(senvalues[0]); //0
-//    digitalWrite(led2, HIGH);
-//  }
-//  else {
-//    Serial.println("black color");
-//    Serial.println(digitalRead(senvalues[0])); //1
-//    digitalWrite(led2, LOW);
-//  }
+  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+    senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
+    Serial.println("white color");
+    Serial.println(senvalues[0]); //0
+    digitalWrite(13, HIGH);
+  }
+  else {
+    Serial.println("black color");
+    Serial.println(digitalRead(senvalues[0])); //1
+    digitalWrite(13, LOW);
+  }
 
 }
