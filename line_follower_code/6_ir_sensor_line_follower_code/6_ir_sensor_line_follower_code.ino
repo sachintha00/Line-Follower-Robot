@@ -27,6 +27,13 @@ void setup() {
   pinMode(sensor5, INPUT);
   pinMode(sensor6, INPUT);
 
+  pinMode(rightMotor_ena, OUTPUT);
+  pinMode(rightMotor_R, OUTPUT);
+  pinMode(rightMotor_L, OUTPUT);
+  pinMode(leftMotor_R, OUTPUT);
+  pinMode(leftMotor_L, OUTPUT);
+  pinMode(leftMotor_enb, OUTPUT);
+
   pinMode(13,OUTPUT);
 
 }
@@ -51,4 +58,11 @@ void loop() {
     digitalWrite(13, LOW);
   }
 
+}
+
+void motorControl(int rSpeed, int lSpeed){
+  digitalWrite(rightMotor_R,HIGH);
+  digitalWrite(rightMotor_L,LOW);
+  digitalWrite(leftMotor_R,HIGH);
+  digitalWrite(leftMotor_L,HIGH);
 }
