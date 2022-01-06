@@ -51,7 +51,14 @@ void loop() {
     Serial.println("white color");
     Serial.println(senvalues[0]); //0
     digitalWrite(13, HIGH);
-    motorControl(125,125);
+    motorControl(0,0);
+  }
+  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+    senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
+    Serial.println("white color");
+    Serial.println(senvalues[0]); //0
+    digitalWrite(13, HIGH);
+    motorControl(0,0);
   }
   else {
     Serial.println("black color");
