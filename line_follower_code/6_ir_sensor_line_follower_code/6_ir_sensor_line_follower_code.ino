@@ -67,7 +67,7 @@ void loop() {
 }
 
 void motorControl(int rSpeed, int lSpeed) {
-  analogWrite(rightMotor_ena, rSpeed);
+  analogWrite(rightMotor_ena, rSpeed-10);
   analogWrite(leftMotor_enb, lSpeed);
 
   digitalWrite(rightMotor_R, HIGH);
