@@ -46,11 +46,11 @@ void loop() {
   senvalues[4] = digitalRead(sensor5);
   senvalues[5] = digitalRead(sensor6);
 
+  //white color = 0
+  //black color = 1
+
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
-    //    Serial.println("white color");
-    //    Serial.println(senvalues[0]); //0
-    //    digitalWrite(13, HIGH);
     motorControl(100, 100);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
@@ -65,10 +65,36 @@ void loop() {
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
     motorControl(0, 0);
   }
-  else {
-    Serial.println("black color");
-    //    Serial.println(digitalRead(senvalues[0])); //1
-    //    digitalWrite(13, LOW);
+  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+      senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 0) {
+    motorControl(0, 0);
+  }
+  if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 1 &&
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
+    motorControl(0, 0);
+  }
+  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 0) {
+    motorControl(0, 0);
+  }
+  if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 0 &&
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
+    motorControl(0, 0);
+  }
+  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 1) {
+    motorControl(0, 0);
+  }
+  if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 0 &&
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
+    motorControl(0, 0);
+  }
+  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 1) {
+    motorControl(0, 0);
+  }
+  if (senvalues[0] == 1 && senvalues[1] == 0 && senvalues[2] == 0 &&
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
     motorControl(0, 0);
   }
 
