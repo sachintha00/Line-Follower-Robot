@@ -14,6 +14,12 @@
 #define leftMotor_L 8
 #define leftMotor_enb 10
 
+//function declareration
+void readSensorValue();
+void pidCalculation();
+void motorControl();
+void forward();
+
 //motor speed
 int initMotorSpeed = 140;
 
@@ -52,6 +58,19 @@ void setup() {
 void loop() {
   readSensorValue();
   Serial.println(error);
+
+  //  pidCalculation();
+  //  motorControl();
+  if (error == 0) {
+    forward();
+  }
+  else {
+    digitalWrite(leftMotor_R, LOW);
+    digitalWrite(leftMotor_L, LOW);
+
+    digitalWrite(rightMotor_R, LOW);
+    digitalWrite(rightMotor_L, LOW);
+  }
 }
 
 void readSensorValue() {
@@ -130,7 +149,7 @@ void pidCalculation() {
   previousError = error;
 }
 
-void motorControl(int Speed, int lSpeed) {
+void motorControl() {
   int leftMotorSpeed = initMotorSpeed - pidValue;
   int rightMotorSpeed = initMotorSpeed + pidValue;
 
@@ -141,7 +160,9 @@ void motorControl(int Speed, int lSpeed) {
   analogWrite(rightMotor_ena, rightMotorSpeed - 30);
 }
 
-void forward(){
+void forward() {
+  analogWrite(leftMotor_enb, 140);
+  analogWrite(rightMotor_ena, 140);
   digitalWrite(leftMotor_R, HIGH);
   digitalWrite(leftMotor_L, LOW);
 
