@@ -22,7 +22,7 @@ float kp = 25;
 float ki = 0;
 float kd = 15;
 
-float error = 0;, p =0, i = 0, d = 0, pidValue = 0;
+float error = 0; , p = 0, i = 0, d = 0, pidValue = 0;
 float previousError = 0, previousI = 0;
 
 void setup() {
@@ -47,6 +47,10 @@ void setup() {
 }
 
 void loop() {
+
+}
+
+void readSensorValue() {
   senvalues[0] = digitalRead(sensor1);
   senvalues[1] = digitalRead(sensor2);
   senvalues[2] = digitalRead(sensor3);
@@ -63,51 +67,48 @@ void loop() {
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 1) {    //0 0 0 0 0 1 --> ERROR = 5
-    motorControl(0, 0);
+    error = 5;
   }
-  
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 1) {    //0 0 0 0 1 1 --> ERROR = 4
-    motorControl(0, 0);
+    error = 4;
   }
-  
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 0 1 0 --> ERROR = 3
-    motorControl(0, 0);
+    error = 3;
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 1 1 0 --> ERROR = 2
-    motorControl(0, 0);
+    error = 2;
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 0 1 0 0 --> ERROR = 1
-    motorControl(0, 0);
+    error = 1;
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
       senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 1 0 0 --> ERROR = 0
-    motorControl(0, 0);
+    error = 0;
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 0 0 0 --> ERROR = -1
-    motorControl(0, 0);
+    error = -1;
   }
   if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 1 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 1 0 0 0 --> ERROR = -2
-    motorControl(0, 0);
+    error = -2;
   }
   if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 0 0 0 0 --> ERROR = -3
-    motorControl(0, 0);
+    error = -3;
   }
   if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 1 0 0 0 0 --> ERROR = -4
-    motorControl(0, 0);
+    error = -4;
   }
   if (senvalues[0] == 1 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 0 0 0 0 0 --> ERROR = -5
-    motorControl(0, 0);
+    error = -5;
   }
-
 }
 
 void motorControl(int Speed, int lSpeed) {
