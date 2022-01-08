@@ -17,6 +17,14 @@
 //for sensors values
 int senvalues[6] = {0, 0, 0, 0, 0, 0};
 
+//pid constants
+float kp = 25;
+float ki = 0;
+float kd = 15;
+
+float error = 0;, p =0, i = 0, d = 0, pidValue = 0;
+float previousError = 0, previousI = 0;
+
 void setup() {
   //  for reading analog inputs
   Serial.begin(9600);
@@ -102,13 +110,13 @@ void loop() {
 
 }
 
-void motorControl(int rSpeed, int lSpeed) {
-  analogWrite(rightMotor_ena, rSpeed);
-  analogWrite(leftMotor_enb, lSpeed);
-
-  digitalWrite(rightMotor_R, HIGH);
-  digitalWrite(rightMotor_L, LOW);
+void motorControl(int Speed, int lSpeed) {
+  analogWrite(leftMotor_enb, Speed);
+  analogWrite(rightMotor_ena, Speed);
 
   digitalWrite(leftMotor_R, HIGH);
   digitalWrite(leftMotor_L, LOW);
+
+  digitalWrite(rightMotor_R, HIGH);
+  digitalWrite(rightMotor_L, LOW);
 }
