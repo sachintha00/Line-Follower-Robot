@@ -22,7 +22,7 @@ float kp = 25;
 float ki = 0;
 float kd = 15;
 
-float error = 0; , p = 0, i = 0, d = 0, pidValue = 0;
+float error = 0 , p = 0, i = 0, d = 0, pidValue = 0;
 float previousError = 0, previousI = 0;
 
 void setup() {
@@ -109,6 +109,17 @@ void readSensorValue() {
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 0 0 0 0 0 --> ERROR = -5
     error = -5;
   }
+}
+
+void pidCalculation() {
+  p = error;
+  i = i + previousI;
+  d = error - previousError;
+
+  pidValue = (kp * p) + (ki + i) + (kd + d);
+  
+  previousI = i;
+  previousError = error;
 }
 
 void motorControl(int Speed, int lSpeed) {
