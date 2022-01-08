@@ -47,7 +47,8 @@ void setup() {
 }
 
 void loop() {
-
+readSensorValue();
+Serial.println(error);
 }
 
 void readSensorValue() {
@@ -62,8 +63,8 @@ void readSensorValue() {
   //black color = 1
 
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 0 0 0 0
-    motorControl(100, 100);
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 0 0 0 0 --> ERROR = 100
+    error = 100;
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 1) {    //0 0 0 0 0 1 --> ERROR = 5
@@ -108,6 +109,10 @@ void readSensorValue() {
   if (senvalues[0] == 1 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 0 0 0 0 0 --> ERROR = -5
     error = -5;
+  }
+   if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 1 &&
+      senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 1) {    //1 1 1 1 1 1 --> ERROR = -100
+    error = -100;
   }
 }
 
