@@ -59,52 +59,13 @@ void setup() {
 }
 
 void loop() {
-  if (error == 100) {               // Make left turn untill it detects straight path
-    //Serial.print("\t");
-    //Serial.println("Left");
+  if (error == 100) { // Make left turn untill it detects straight path
     do {
       readSensorValue();
-      analogWrite(leftMotor_enb, 110); //Left Motor Speed
-      analogWrite(rightMotor_ena, 90); //Right Motor Speed
+      analogWrite(rightMotor_ena, 110);
+      analogWrite(leftMotor_enb, 90);
       sharpLeftTurn();
     } while (error != 0);
-
-  } else if (error == 101) {          // Make right turn in case of it detects only right path (it will go into forward direction in case of staright and right "|--")
-    // untill it detects straight path.
-    //Serial.print("\t");
-    //Serial.println("Right");
-    analogWrite(leftMotor_enb, 110); //Left Motor Speed
-    analogWrite(rightMotor_ena, 90); //Right Motor Speed
-    forward();
-    delay(200);
-    stopBot();
-    readSensorValue();
-    if (error == 102) {
-      do {
-        analogWrite(leftMotor_enb, 110); //Left Motor Speed
-        analogWrite(rightMotor_ena, 90); //Right Motor Speed
-        sharpRightTurn();
-        readSensorValue();
-      } while (error != 0);
-    }
-  } else if (error == 100) {        // Make left turn untill it detects straight path
-    //Serial.print("\t");
-    //Serial.println("Sharp Left Turn");
-    do {
-      analogWrite(leftMotor_enb, 110); //Left Motor Speed
-      analogWrite(rightMotor_ena, 90); //Right Motor Speed
-      sharpLeftTurn();
-      readSensorValue();
-      if (error == 0) {
-        stopBot();
-        delay(200);
-      }
-    } while (error != 0);
-  } else if (error == -100) {        // Make left turn untill it detects straight path or stop if dead end reached.
-    stopBot();
-  } else {
-    pidCalculation();
-    motorControl();
   }
 }
 
@@ -178,7 +139,7 @@ void pidCalculation() {
   i = i + previousI;
   d = error - previousError;
 
-  pidValue = (kp * p) + (ki + i) + (kd + d);
+  pidValue = (kp * p) + (ki * i) + (kd * d);
 
   previousI = i;
   previousError = error;
@@ -191,8 +152,8 @@ void motorControl() {
   leftMotorSpeed = constrain(leftMotorSpeed, 0, 255);
   rightMotorSpeed = constrain(rightMotorSpeed, 0, 255);
 
-  analogWrite(leftMotor_enb, leftMotorSpeed);
-  analogWrite(rightMotor_ena, rightMotorSpeed - 30);
+  analogWrite(leftMotor_enb, leftMotorSpeed - 30);
+  analogWrite(rightMotor_ena, rightMotorSpeed);
   forward();
 }
 
