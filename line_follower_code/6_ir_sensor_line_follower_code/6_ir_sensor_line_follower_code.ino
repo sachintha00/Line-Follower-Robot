@@ -53,8 +53,22 @@ void loop() {
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 0 0 0 0
     motorControl(100, 100);
   }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
-      senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 1 0 0 --> ERROR = 0
+  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 1) {    //0 0 0 0 0 1 --> ERROR = 5
+    motorControl(0, 0);
+  }
+  
+  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 1) {    //0 0 0 0 1 1 --> ERROR = 4
+    motorControl(0, 0);
+  }
+  
+  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 0 1 0 --> ERROR = 3
+    motorControl(0, 0);
+  }
+  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+      senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 1 1 0 --> ERROR = 2
     motorControl(0, 0);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
@@ -62,35 +76,23 @@ void loop() {
     motorControl(0, 0);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 0 0 0 --> ERROR = -1
+      senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 1 0 0 --> ERROR = 0
     motorControl(0, 0);
   }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 1 1 0 --> ERROR = 2
+  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 0 0 0 --> ERROR = -1
     motorControl(0, 0);
   }
   if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 1 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 1 0 0 0 --> ERROR = -2
     motorControl(0, 0);
   }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 0 1 0 --> ERROR = 3
-    motorControl(0, 0);
-  }
   if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 0 0 0 0 --> ERROR = -3
     motorControl(0, 0);
   }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 1) {    //0 0 0 0 1 1 --> ERROR = 4
-    motorControl(0, 0);
-  }
   if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 1 0 0 0 0 --> ERROR = -4
-    motorControl(0, 0);
-  }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 1) {    //0 0 0 0 0 1 --> ERROR = 5
     motorControl(0, 0);
   }
   if (senvalues[0] == 1 && senvalues[1] == 0 && senvalues[2] == 0 &&
