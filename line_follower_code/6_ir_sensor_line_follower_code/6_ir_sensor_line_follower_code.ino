@@ -50,51 +50,51 @@ void loop() {
   //black color = 1
 
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 0 0 0 0
     motorControl(100, 100);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
-      senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {
+      senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 1 0 0
     motorControl(0, 0);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {
+      senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 0 1 0 0
     motorControl(0, 0);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 0 0 0
     motorControl(0, 0);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 0) {
+      senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 1 1 0
     motorControl(0, 0);
   }
   if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 1 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 1 0 0 0
     motorControl(0, 0);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 0) {
+      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 0 1 0
     motorControl(0, 0);
   }
   if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 0 0 0 0
     motorControl(0, 0);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 1) {
+      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 1) {    //0 0 0 0 1 1
     motorControl(0, 0);
   }
   if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 1 0 0 0 0
     motorControl(0, 0);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 1) {
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 1) {    //0 0 0 0 0 1
     motorControl(0, 0);
   }
   if (senvalues[0] == 1 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 0 0 0 0 0
     motorControl(0, 0);
   }
 
