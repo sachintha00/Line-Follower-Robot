@@ -22,7 +22,7 @@ void forward();
 void stopBot();
 
 //motor speed
-int initMotorSpeed = 140;
+int initMotorSpeed = 100;
 
 //for sensors values
 int senvalues[6] = {0, 0, 0, 0, 0, 0};
@@ -63,9 +63,9 @@ void loop() {
     //Serial.print("\t");
     //Serial.println("Left");
     do {
-      read_sensor_values();
-      analogWrite(ENA, 110); //Left Motor Speed
-      analogWrite(ENB, 90); //Right Motor Speed
+      readSensorValue();
+      analogWrite(leftMotor_enb, 110); //Left Motor Speed
+      analogWrite(rightMotor_ena, 90); //Right Motor Speed
       sharpLeftTurn();
     } while (error != 0);
 
@@ -73,64 +73,38 @@ void loop() {
     // untill it detects straight path.
     //Serial.print("\t");
     //Serial.println("Right");
-    analogWrite(ENA, 110); //Left Motor Speed
-    analogWrite(ENB, 90); //Right Motor Speed
+    analogWrite(leftMotor_enb, 110); //Left Motor Speed
+    analogWrite(rightMotor_ena, 90); //Right Motor Speed
     forward();
     delay(200);
-    stop_bot();
-    read_sensor_values();
+    stopBot();
+    readSensorValue();
     if (error == 102) {
       do {
-        analogWrite(ENA, 110); //Left Motor Speed
-        analogWrite(ENB, 90); //Right Motor Speed
+        analogWrite(leftMotor_enb, 110); //Left Motor Speed
+        analogWrite(rightMotor_ena, 90); //Right Motor Speed
         sharpRightTurn();
-        read_sensor_values();
+        readSensorValue();
       } while (error != 0);
     }
   } else if (error == 100) {        // Make left turn untill it detects straight path
     //Serial.print("\t");
     //Serial.println("Sharp Left Turn");
     do {
-      analogWrite(ENA, 110); //Left Motor Speed
-      analogWrite(ENB, 90); //Right Motor Speed
+      analogWrite(leftMotor_enb, 110); //Left Motor Speed
+      analogWrite(rightMotor_ena, 90); //Right Motor Speed
       sharpLeftTurn();
-      read_sensor_values();
+      readSensorValue();
       if (error == 0) {
         stopBot();
         delay(200);
       }
     } while (error != 0);
   } else if (error == -100) {        // Make left turn untill it detects straight path or stop if dead end reached.
-    if (flag == 0) {
-      analogWrite(ENA, 110); //Left Motor Speed
-      analogWrite(ENB, 90); //Right Motor Speed
-      forward();
-      delay(200);
-      stopBot();
-      read_sensor_values();
-      if (error == -100) {     /**** Dead End Reached, Stop! ****/
-        stop_bot();
-        digitalWrite(ledPin1, HIGH);
-        digitalWrite(ledPin2, HIGH);
-        flag = 1;
-      } else {        /**** Move Left ****/
-        analogWrite(ENA, 110); //Left Motor Speed
-        analogWrite(ENB, 90); //Right Motor Speed
-        sharpLeftTurn();
-        delay(200);
-        do {
-          //Serial.print("\t");
-          //Serial.println("Left Here");
-          read_sensor_values();
-          analogWrite(ENA, 110); //Left Motor Speed
-          analogWrite(ENB, 90); //Right Motor Speed
-          sharpLeftTurn();
-        } while (error != 0);
-      }
-    }
+    stopBot();
   } else {
-    calculate_pid();
-    motor_control();
+    pidCalculation();
+    motorControl();
   }
 }
 
@@ -235,6 +209,13 @@ void sharpLeftTurn() {
 
   digitalWrite(rightMotor_R, HIGH);
   digitalWrite(rightMotor_L, LOW);
+}
+void sharpRightTurn() {
+  digitalWrite(leftMotor_R, HIGH);
+  digitalWrite(leftMotor_L, LOW);
+
+  digitalWrite(rightMotor_R, LOW);
+  digitalWrite(rightMotor_L, HIGH);
 }
 void stopBot() {
   digitalWrite(leftMotor_R, LOW);
