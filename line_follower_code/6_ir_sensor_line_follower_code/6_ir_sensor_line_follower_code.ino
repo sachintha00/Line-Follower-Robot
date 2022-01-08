@@ -139,7 +139,9 @@ void motorControl(int Speed, int lSpeed) {
 
   analogWrite(leftMotor_enb, leftMotorSpeed);
   analogWrite(rightMotor_ena, rightMotorSpeed - 30);
+}
 
+void forward(){
   digitalWrite(leftMotor_R, HIGH);
   digitalWrite(leftMotor_L, LOW);
 
