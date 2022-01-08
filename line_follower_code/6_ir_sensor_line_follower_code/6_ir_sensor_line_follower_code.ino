@@ -14,6 +14,9 @@
 #define leftMotor_L 8
 #define leftMotor_enb 10
 
+//motor speed
+int initMotorSpeed = 140;
+
 //for sensors values
 int senvalues[6] = {0, 0, 0, 0, 0, 0};
 
@@ -47,8 +50,8 @@ void setup() {
 }
 
 void loop() {
-readSensorValue();
-Serial.println(error);
+  readSensorValue();
+  Serial.println(error);
 }
 
 void readSensorValue() {
@@ -110,7 +113,7 @@ void readSensorValue() {
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 0 0 0 0 0 --> ERROR = -5
     error = -5;
   }
-   if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 1 &&
+  if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 1 &&
       senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 1) {    //1 1 1 1 1 1 --> ERROR = -100
     error = -100;
   }
@@ -122,14 +125,20 @@ void pidCalculation() {
   d = error - previousError;
 
   pidValue = (kp * p) + (ki + i) + (kd + d);
-  
+
   previousI = i;
   previousError = error;
 }
 
 void motorControl(int Speed, int lSpeed) {
-  analogWrite(leftMotor_enb, Speed);
-  analogWrite(rightMotor_ena, Speed);
+  int leftMotorSpeed = initMotorSpeed - pidValue;
+  int rightMotorSpeed = initMotorSpeed + pidValue;
+
+  leftMotorSpeed = constrain(leftMotorSpeed, 0, 255);
+  rightMotorSpeed = constrain(rightMotorSpeed, 0, 255);
+
+  analogWrite(leftMotor_enb, leftMotorSpeed);
+  analogWrite(rightMotor_ena, rightMotorSpeed - 30);
 
   digitalWrite(leftMotor_R, HIGH);
   digitalWrite(leftMotor_L, LOW);
