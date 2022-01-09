@@ -71,7 +71,27 @@ void loop() {
     } while (error != 0);
     Serial.println(error);
   }
-  else{
+  else if (error == 5 || error == 4 || error == 3 || error == 2 || error == 1) { // Make left turn untill it detects straight path
+    do {
+      Serial.println(error);
+      readSensorValue();
+      analogWrite(rightMotor_ena, 110);
+      analogWrite(leftMotor_enb, 90);
+      forward();
+    } while (error != 0);
+    Serial.println(error);
+  }
+  else if (error == -5 || error == -4 || error == -3 || error == -2 || error == -1) { // Make left turn untill it detects straight path
+    do {
+      Serial.println(error);
+      readSensorValue();
+      analogWrite(rightMotor_ena, 90);
+      analogWrite(leftMotor_enb, 110);
+      forward();
+    } while (error != 0);
+    Serial.println(error);
+  }
+  else {
     Serial.println("stop function");
     stopBot();
   }
