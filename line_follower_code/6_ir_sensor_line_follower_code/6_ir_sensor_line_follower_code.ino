@@ -61,7 +61,7 @@ void setup() {
 void loop() {
   readSensorValue();
   Serial.println(error);
-  if (error == 100) { // Make left turn untill it detects straight path
+  if (error == 100 ) { // Make left turn untill it detects straight path
     do {
       Serial.println(error);
       readSensorValue();
