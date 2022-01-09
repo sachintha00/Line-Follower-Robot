@@ -59,13 +59,21 @@ void setup() {
 }
 
 void loop() {
+  readSensorValue();
+  Serial.println(error);
   if (error == 100) { // Make left turn untill it detects straight path
     do {
+      Serial.println(error);
       readSensorValue();
       analogWrite(rightMotor_ena, 110);
       analogWrite(leftMotor_enb, 90);
       sharpLeftTurn();
     } while (error != 0);
+    Serial.println(error);
+  }
+  else{
+    Serial.println("stop function");
+    stopBot();
   }
 }
 
