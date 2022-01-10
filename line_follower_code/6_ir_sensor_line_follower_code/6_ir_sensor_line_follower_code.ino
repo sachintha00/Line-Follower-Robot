@@ -90,8 +90,8 @@ void loop() {
     Serial.println(error);
   }
   else {
-    Serial.println("stop function");
-    stopBot();
+//    Serial.println("stop function");
+//    stopBot();
   }
 }
 
