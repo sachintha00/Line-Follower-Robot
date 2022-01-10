@@ -35,8 +35,6 @@ float kd = 15;
 float error = 0 , p = 0, i = 0, d = 0, pidValue = 0;
 float previousError = 0, previousI = 0;
 
-int flag = 0;
-
 void setup() {
   //  for reading analog inputs
   Serial.begin(9600);
