@@ -33,6 +33,8 @@ float kd = 15;
 float error = 0 , p = 0, i = 0, d = 0, pidValue = 0;
 float previousError = 0, previousI = 0;
 
+int flag = 0;
+
 void setup() {
   pinMode(sensor1, INPUT);
   pinMode(sensor2, INPUT);
@@ -50,15 +52,69 @@ void setup() {
 
 void loop() {
   readSensorValue();
-  if (error == 100 ) {
-    do {
-      readSensorValue();
-      analogWrite(rightMotor_ena, 110);
-      analogWrite(leftMotor_enb, 90);
-      sharpLeftTurn();
-    } while (error != 0);
-    stopBot();
-  }
+  //  if (error == 100 ) {
+  //    do {
+  //      readSensorValue();
+  //      analogWrite(leftMotor_enb, 70);
+  //      analogWrite(rightMotor_ena, 50);
+  //      sharpLeftTurn();
+  //    } while (error != 0);
+  //  }
+  //  else if (error = 101) {
+  //    analogWrite(leftMotor_enb, 70);
+  //    analogWrite(rightMotor_ena, 50);
+  //    forward();
+  //    delay(200);
+  //    stopBot();
+  //    readSensorValue();
+  //    if (error == 102) {
+  //      do {
+  //        analogWrite(leftMotor_enb, 70); //Left Motor Speed
+  //        analogWrite(rightMotor_ena, 50); //Right Motor Speed
+  //        sharpRightTurn();
+  //        readSensorValue();
+  //      } while (error != 0);
+  //    }
+  //  }
+  //  else if (error == 102) {        // Make left turn untill it detects straight path
+  //    do {
+  //      analogWrite(leftMotor_enb, 70); //Left Motor Speed
+  //      analogWrite(rightMotor_ena, 50); //Right Motor Speed
+  //      sharpLeftTurn();
+  //      readSensorValue();
+  //      if (error == 0) {
+  //        stopBot();
+  //        delay(200);
+  //      }
+  //    } while (error != 0);
+  //  } else if (error == 103) {        // Make left turn untill it detects straight path or stop if dead end reached.
+  //    if (flag == 0) {
+  //      analogWrite(leftMotor_enb, 70); //Left Motor Speed
+  //      analogWrite(rightMotor_ena, 50); //Right Motor Speed
+  //      forward();
+  //      delay(200);
+  //      stopBot();
+  //      readSensorValue();
+  //      if (error == 103) {     /**** Dead End Reached, Stop! ****/
+  //        stopBot();
+  //        flag = 1;
+  //      } else {        /**** Move Left ****/
+  //        analogWrite(leftMotor_enb, 70); //Left Motor Speed
+  //        analogWrite(leftMotor_enb, 50); //Right Motor Speed
+  //        sharpLeftTurn();
+  //        delay(200);
+  //        do {
+  //          readSensorValue();
+  //          analogWrite(leftMotor_enb, 70); //Left Motor Speed
+  //          analogWrite(leftMotor_enb, 50); //Right Motor Speed
+  //          sharpLeftTurn();
+  //        } while (error != 0);
+  //      }
+  //    }
+  //  } else {
+  //    pidCalculation();
+  //    motorControl();
+  //  }
 
 }
 
@@ -71,49 +127,78 @@ void readSensorValue() {
   //white color = 0
   //black color = 1
 
-  if (senvalues[0] == 1 && senvalues[1] == 0
-      && senvalues[2] == 0 && senvalues[3] == 0 ) {    //1 0 0 0 --> ERROR = 3
-    error = 3;
+  //  if (senvalues[0] == 1 && senvalues[1] == 0
+  //      && senvalues[2] == 0 && senvalues[3] == 0 ) {    //1 0 0 0 --> ERROR = 3
+  //    error = 3;
+  //  }
+  //  if (senvalues[0] == 1 && senvalues[1] == 1
+  //      && senvalues[2] == 0 && senvalues[3] == 0) {    //1 1 0 0 --> ERROR = 2
+  //    error = 2;
+  //  }
+  //  if (senvalues[0] == 0 && senvalues[1] == 1
+  //      && senvalues[2] == 0 && senvalues[3] == 0) {    //0 1 0 0 --> ERROR = 1
+  //    error = 1;
+  //  }
+  //  if (senvalues[0] == 0 && senvalues[1] == 1
+  //      && senvalues[2] == 1 && senvalues[3] == 0) {    //0 1 1 0 --> ERROR = 0
+  //    error = 0;
+  //  }
+  //  if (senvalues[0] == 0 && senvalues[1] == 0
+  //      && senvalues[2] == 1 && senvalues[3] == 0) {    //0 0 1 0 --> ERROR = -1
+  //    error = -1;
+  //  }
+  //  if (senvalues[0] == 0 && senvalues[1] == 0
+  //      && senvalues[2] == 1 && senvalues[3] == 1) {    //0 0 1 1 --> ERROR = -2
+  //    error = -2;
+  //  }
+  //  if (senvalues[0] == 0 && senvalues[1] == 0
+  //      && senvalues[2] == 0 && senvalues[3] == 1) {    //0 0 0 1 --> ERROR = -3
+  //    error = -3;
+  //  }
+  //  if (senvalues[0] == 1 && senvalues[1] == 1
+  //      && senvalues[2] == 1 && senvalues[3] == 0) {    //1 1 1 0 --> ERROR = 100
+  //    error = 100;
+  //  }
+  //  if (senvalues[0] == 0 && senvalues[1] == 1
+  //      && senvalues[2] == 1 && senvalues[3] == 1) {    //0 1 1 1 --> ERROR = 101
+  //    error = 101;
+  //  }
+  //  if (senvalues[0] == 0 && senvalues[1] == 0
+  //      && senvalues[2] == 0 && senvalues[3] == 0) {    //0 0 0 0 --> ERROR = 102
+  //    error = 102;
+  //  }
+  //  if (senvalues[0] == 1 && senvalues[1] == 1
+  //      && senvalues[2] == 1 && senvalues[3] == 1) {    //1 1 1 1 --> ERROR = 103
+  //    error = 103;
+  //  }
+
+
+
+  if (senvalues[0] == 0 && senvalues[1] == 1
+      && senvalues[2] == 1 && senvalues[3] == 0 ) {    //0 1 1 0
+    analogWrite(leftMotor_enb, 100);
+    analogWrite(leftMotor_enb, 100);
+    forward();
   }
   if (senvalues[0] == 1 && senvalues[1] == 1
-      && senvalues[2] == 0 && senvalues[3] == 0) {    //1 1 0 0 --> ERROR = 2
-    error = 2;
-  }
-  if (senvalues[0] == 0 && senvalues[1] == 1
-      && senvalues[2] == 0 && senvalues[3] == 0) {    //0 1 0 0 --> ERROR = 1
-    error = 1;
-  }
-  if (senvalues[0] == 0 && senvalues[1] == 1
-      && senvalues[2] == 1 && senvalues[3] == 0) {    //0 1 1 0 --> ERROR = 0
-    error = 0;
+      && senvalues[2] == 1 && senvalues[3] == 1 ) {    //1 1 1 1
+    stopBot();
   }
   if (senvalues[0] == 0 && senvalues[1] == 0
-      && senvalues[2] == 1 && senvalues[3] == 0) {    //0 0 1 0 --> ERROR = -1
-    error = -1;
-  }
-  if (senvalues[0] == 0 && senvalues[1] == 0
-      && senvalues[2] == 1 && senvalues[3] == 1) {    //0 0 1 1 --> ERROR = -2
-    error = -2;
-  }
-  if (senvalues[0] == 0 && senvalues[1] == 0
-      && senvalues[2] == 0 && senvalues[3] == 1) {    //0 0 0 1 --> ERROR = -3
-    error = -3;
+      && senvalues[2] == 0 && senvalues[3] == 0 ) {    //0 0 0 0
+    stopBot();
   }
   if (senvalues[0] == 1 && senvalues[1] == 1
-      && senvalues[2] == 1 && senvalues[3] == 0) {    //1 1 1 0 --> ERROR = 100
-    error = 100;
-  }
-  if (senvalues[0] == 0 && senvalues[1] == 1
-      && senvalues[2] == 1 && senvalues[3] == 1) {    //0 1 1 1 --> ERROR = 101
-    error = 101;
+      && senvalues[2] == 0 && senvalues[3] == 0 ) {    //1 1 0 0
+    analogWrite(leftMotor_enb, 100);
+    analogWrite(leftMotor_enb, 100);
+    sharpLeftTurn();
   }
   if (senvalues[0] == 0 && senvalues[1] == 0
-      && senvalues[2] == 0 && senvalues[3] == 0) {    //0 0 0 0 --> ERROR = 102
-    error = 102;
-  }
-  if (senvalues[0] == 1 && senvalues[1] == 1
-      && senvalues[2] == 1 && senvalues[3] == 1) {    //1 1 1 1 --> ERROR = 103
-    error = 103;
+      && senvalues[2] == 1 && senvalues[3] == 1 ) {    //0 0 1 1
+    analogWrite(leftMotor_enb, 100);
+    analogWrite(leftMotor_enb, 100);
+    sharpRightTurn();
   }
 }
 
