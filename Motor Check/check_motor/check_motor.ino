@@ -17,11 +17,14 @@ void setup() {
 }
 
 void loop() {
-  analogWrite(rightMotor_ena, 70);
-  analogWrite(leftMotor_enb, 60);
+  analogWrite(rightMotor_ena, 255);
+  analogWrite(leftMotor_enb, 255);
+
+  //left
   digitalWrite(leftMotor_R, HIGH);
   digitalWrite(leftMotor_L, LOW);
 
+  //right
   digitalWrite(rightMotor_R, HIGH);
   digitalWrite(rightMotor_L, LOW);
 
