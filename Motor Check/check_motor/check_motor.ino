@@ -7,7 +7,12 @@
 #define leftMotor_enb 10
 
 void setup() {
-  // put your setup code here, to run once:
+  pinMode(rightMotor_ena, OUTPUT);
+  pinMode(rightMotor_R, OUTPUT);
+  pinMode(rightMotor_L, OUTPUT);
+  pinMode(leftMotor_R, OUTPUT);
+  pinMode(leftMotor_L, OUTPUT);
+  pinMode(leftMotor_enb, OUTPUT);
 
 }
 
