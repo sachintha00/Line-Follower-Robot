@@ -57,44 +57,44 @@ void setup() {
 }
 
 void loop() {
-  readSensorValue();
-  Serial.println(error);
-  if (error == 100 ) { // Make left turn untill it detects straight path
-    do {
-      Serial.println(error);
-      readSensorValue();
-      analogWrite(rightMotor_ena, 110);
-      analogWrite(leftMotor_enb, 90);
-      sharpLeftTurn();
-    } while (error != 0);
-    Serial.println(error);
-  }
-  else if (error == 5 || error == 4 || error == 3 || error == 2 || error == 1) { // Make left turn untill it detects straight path
-    do {
-      Serial.println(error);
-      readSensorValue();
-      analogWrite(rightMotor_ena, 110);
-      analogWrite(leftMotor_enb, 90);
-      forward();
-    } while (error != 0);
-    Serial.println(error);
-  }
-  else if (error == -5 || error == -4 || error == -3 || error == -2 || error == -1) { // Make left turn untill it detects straight path
-    do {
-      Serial.println(error);
-      readSensorValue();
-      analogWrite(rightMotor_ena, 90);
-      analogWrite(leftMotor_enb, 110);
-      forward();
-    } while (error != 0);
-    Serial.println(error);
-  }
-  else {
-    //    Serial.println("stop function");
-    //    stopBot();
-    pidCalculation();
-    motorControl();
-  }
+    readSensorValue();
+  //  Serial.println(error);
+  //  if (error == 100 ) { // Make left turn untill it detects straight path
+  //    do {
+  //      Serial.println(error);
+  //      readSensorValue();
+  //      analogWrite(rightMotor_ena, 110);
+  //      analogWrite(leftMotor_enb, 90);
+  //      sharpLeftTurn();
+  //    } while (error != 0);
+  //    Serial.println(error);
+  //  }
+  //  else if (error == 5 || error == 4 || error == 3 || error == 2 || error == 1) { // Make left turn untill it detects straight path
+  //    do {
+  //      Serial.println(error);
+  //      readSensorValue();
+  //      analogWrite(rightMotor_ena, 110);
+  //      analogWrite(leftMotor_enb, 90);
+  //      forward();
+  //    } while (error != 0);
+  //    Serial.println(error);
+  //  }
+  //  else if (error == -5 || error == -4 || error == -3 || error == -2 || error == -1) { // Make left turn untill it detects straight path
+  //    do {
+  //      Serial.println(error);
+  //      readSensorValue();
+  //      analogWrite(rightMotor_ena, 90);
+  //      analogWrite(leftMotor_enb, 110);
+  //      forward();
+  //    } while (error != 0);
+  //    Serial.println(error);
+  //  }
+  //  else {
+  //    //    Serial.println("stop function");
+  //    //    stopBot();
+  //    pidCalculation();
+  //    motorControl();
+  //  }
 }
 
 void readSensorValue() {
@@ -115,42 +115,102 @@ void readSensorValue() {
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 1) {    //0 0 0 0 0 1 --> ERROR = 5
     error = 5;
+    sharpLeftTurn();
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 1) {    //0 0 0 0 1 1 --> ERROR = 4
     error = 4;
+    analogWrite(rightMotor_ena, 90);
+    analogWrite(leftMotor_enb, 110);
+    digitalWrite(leftMotor_R, HIGH);
+    digitalWrite(leftMotor_L, LOW);
+
+    digitalWrite(rightMotor_R, HIGH);
+    digitalWrite(rightMotor_L, LOW);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 0 1 0 --> ERROR = 3
     error = 3;
+    analogWrite(rightMotor_ena, 90);
+    analogWrite(leftMotor_enb, 100);
+    digitalWrite(leftMotor_R, HIGH);
+    digitalWrite(leftMotor_L, LOW);
+
+    digitalWrite(rightMotor_R, HIGH);
+    digitalWrite(rightMotor_L, LOW);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 1 1 0 --> ERROR = 2
     error = 2;
+    analogWrite(rightMotor_ena, 50);
+    analogWrite(leftMotor_enb, 90);
+    digitalWrite(leftMotor_R, HIGH);
+    digitalWrite(leftMotor_L, LOW);
+
+    digitalWrite(rightMotor_R, HIGH);
+    digitalWrite(rightMotor_L, LOW);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 0 1 0 0 --> ERROR = 1
     error = 1;
+    analogWrite(rightMotor_ena, 60);
+    analogWrite(leftMotor_enb, 70);
+    digitalWrite(leftMotor_R, HIGH);
+    digitalWrite(leftMotor_L, LOW);
+
+    digitalWrite(rightMotor_R, HIGH);
+    digitalWrite(rightMotor_L, LOW);
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
       senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 1 0 0 --> ERROR = 0
     error = 0;
+    analogWrite(rightMotor_ena, 90);
+    analogWrite(leftMotor_enb, 90);
+    forward();
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 0 0 0 --> ERROR = -1
     error = -1;
+    analogWrite(rightMotor_ena, 70);
+    analogWrite(leftMotor_enb, 60);
+    digitalWrite(leftMotor_R, HIGH);
+    digitalWrite(leftMotor_L, LOW);
+
+    digitalWrite(rightMotor_R, HIGH);
+    digitalWrite(rightMotor_L, LOW);
   }
   if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 1 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 1 0 0 0 --> ERROR = -2
     error = -2;
+    analogWrite(rightMotor_ena, 90);
+    analogWrite(leftMotor_enb, 50);
+    digitalWrite(leftMotor_R, HIGH);
+    digitalWrite(leftMotor_L, LOW);
+
+    digitalWrite(rightMotor_R, HIGH);
+    digitalWrite(rightMotor_L, LOW);
   }
   if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 0 0 0 0 --> ERROR = -3
     error = -3;
+    analogWrite(rightMotor_ena, 90);
+    analogWrite(leftMotor_enb, 50);
+    digitalWrite(leftMotor_R, HIGH);
+    digitalWrite(leftMotor_L, LOW);
+
+    digitalWrite(rightMotor_R, HIGH);
+    digitalWrite(rightMotor_L, LOW);
   }
   if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 1 0 0 0 0 --> ERROR = -4
     error = -4;
+    analogWrite(rightMotor_ena, 110);
+    analogWrite(leftMotor_enb, 90);
+    digitalWrite(leftMotor_R, HIGH);
+    digitalWrite(leftMotor_L, LOW);
+
+    digitalWrite(rightMotor_R, HIGH);
+    digitalWrite(rightMotor_L, LOW);
   }
   if (senvalues[0] == 1 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 0 0 0 0 0 --> ERROR = -5
