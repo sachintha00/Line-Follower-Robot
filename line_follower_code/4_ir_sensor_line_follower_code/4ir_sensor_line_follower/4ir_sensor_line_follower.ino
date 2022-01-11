@@ -18,6 +18,14 @@ int senvalues[6] = {0, 0, 0, 0, 0, 0};
 //motor speed
 int initMotorSpeed = 100;
 
+//pid constants
+float kp = 25;
+float ki = 0;
+float kd = 15;
+
+float error = 0 , p = 0, i = 0, d = 0, pidValue = 0;
+float previousError = 0, previousI = 0;
+
 void setup() {
   pinMode(sensor1, INPUT);
   pinMode(sensor2, INPUT);
@@ -36,7 +44,15 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  readSensorValue();
+    if (error == 100 ) {
+      do {
+        readSensorValue();
+        analogWrite(rightMotor_ena, 110);
+        analogWrite(leftMotor_enb, 90);
+        sharpLeftTurn();
+      } while (error != 0);
+    }
 
 }
 
@@ -93,4 +109,56 @@ void readSensorValue() {
       && senvalues[2] == 1 && senvalues[3] == 1) {    //1 1 1 1 --> ERROR = 103
     error = 103;
   }
+}
+
+void pidCalculation() {
+  p = error;
+  i = i + previousI;
+  d = error - previousError;
+
+  pidValue = (kp * p) + (ki * i) + (kd * d);
+
+  previousI = i;
+  previousError = error;
+}
+
+void motorControl() {
+  int leftMotorSpeed = initMotorSpeed - pidValue;
+  int rightMotorSpeed = initMotorSpeed + pidValue;
+
+  leftMotorSpeed = constrain(leftMotorSpeed, 0, 255);
+  rightMotorSpeed = constrain(rightMotorSpeed, 0, 255);
+
+  analogWrite(leftMotor_enb, leftMotorSpeed - 30);
+  analogWrite(rightMotor_ena, rightMotorSpeed);
+  forward();
+}
+
+void forward() {
+  digitalWrite(leftMotor_R, HIGH);
+  digitalWrite(leftMotor_L, LOW);
+
+  digitalWrite(rightMotor_R, HIGH);
+  digitalWrite(rightMotor_L, LOW);
+}
+void sharpLeftTurn() {
+  digitalWrite(leftMotor_R, LOW);
+  digitalWrite(leftMotor_L, HIGH);
+
+  digitalWrite(rightMotor_R, HIGH);
+  digitalWrite(rightMotor_L, LOW);
+}
+void sharpRightTurn() {
+  digitalWrite(leftMotor_R, HIGH);
+  digitalWrite(leftMotor_L, LOW);
+
+  digitalWrite(rightMotor_R, LOW);
+  digitalWrite(rightMotor_L, HIGH);
+}
+void stopBot() {
+  digitalWrite(leftMotor_R, LOW);
+  digitalWrite(leftMotor_L, LOW);
+
+  digitalWrite(rightMotor_R, LOW);
+  digitalWrite(rightMotor_L, LOW);
 }
