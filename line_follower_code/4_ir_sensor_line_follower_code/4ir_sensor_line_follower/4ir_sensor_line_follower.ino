@@ -12,6 +12,13 @@
 #define leftMotor_L 8
 #define leftMotor_enb 10
 
+//function declareration
+void readSensorValue();
+void pidCalculation();
+void motorControl();
+void forward();
+void stopBot();
+
 //for sensors values
 int senvalues[6] = {0, 0, 0, 0, 0, 0};
 
@@ -31,8 +38,6 @@ void setup() {
   pinMode(sensor2, INPUT);
   pinMode(sensor3, INPUT);
   pinMode(sensor4, INPUT);
-  pinMode(sensor5, INPUT);
-  pinMode(sensor6, INPUT);
 
   pinMode(rightMotor_ena, OUTPUT);
   pinMode(rightMotor_R, OUTPUT);
@@ -45,14 +50,15 @@ void setup() {
 
 void loop() {
   readSensorValue();
-    if (error == 100 ) {
-      do {
-        readSensorValue();
-        analogWrite(rightMotor_ena, 110);
-        analogWrite(leftMotor_enb, 90);
-        sharpLeftTurn();
-      } while (error != 0);
-    }
+  if (error == 100 ) {
+    do {
+      readSensorValue();
+      analogWrite(rightMotor_ena, 110);
+      analogWrite(leftMotor_enb, 90);
+      sharpLeftTurn();
+    } while (error != 0);
+    stopBot();
+  }
 
 }
 
