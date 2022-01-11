@@ -17,6 +17,12 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  analogWrite(rightMotor_ena, 70);
+  analogWrite(leftMotor_enb, 60);
+  digitalWrite(leftMotor_R, HIGH);
+  digitalWrite(leftMotor_L, LOW);
+
+  digitalWrite(rightMotor_R, HIGH);
+  digitalWrite(rightMotor_L, LOW);
 
 }
