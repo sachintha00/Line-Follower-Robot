@@ -21,10 +21,12 @@ void motorControl(int motor1, int motor2) {
     if (motor1 > 255) {
       motor1 = 255;
     }
+    digitalWrite(M1, HIGH);
+    analogWrite(M1pwm, 255 - M1);
   }
   else {
     if (motor1 < -255) {
-      motor1 = 255;
+      motor1 = -255;
     }
   }
 }
