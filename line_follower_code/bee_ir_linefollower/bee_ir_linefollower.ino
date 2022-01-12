@@ -16,6 +16,15 @@ void loop() {
 
 }
 
-void motorControl(){
-  
+void motorControl(int motor1, int motor2) {
+  if (motor1 > 0) {
+    if (motor1 > 255) {
+      motor1 = 255;
+    }
+  }
+  else {
+    if (motor1 < -255) {
+      motor1 = 255;
+    }
+  }
 }
