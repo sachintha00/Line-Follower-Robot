@@ -24,19 +24,21 @@ void loop() {
 
 }
 
-void motorControl(int motor1, int motor2) {
-  if (motor1 > 0) {
-    if (motor1 > 255) {
-      motor1 = 255;
+void motorControl(int motorSpeed) {
+  if (motorSpeed > 0) {
+    if (motorSpeed > 255) {
+      motorSpeed = 255;
     }
-    digitalWrite(M1, HIGH);
-    analogWrite(M1pwm, 255 - M1);
+    digitalWrite(rightMotor_R, HIGH);
+    digitalWrite(rightMotor_L,LOW);
+    analogWrite(rightMotor_ena, 255 - M1);
   }
   else {
-    if (motor1 < -255) {
-      motor1 = -255;
+    if (motorSpeed < -255) {
+      motorSpeed = -255;
     }
-    digitalWrite(M1, LOW);
-    analogWrite(M1pwm, M1 * -1);
+    digitalWrite(leftMotor_R, LOW);
+    digitalWrite(leftMotor_L, HIGH);
+    analogWrite(leftMotor_enb, M1 * -1);
   }
 }
