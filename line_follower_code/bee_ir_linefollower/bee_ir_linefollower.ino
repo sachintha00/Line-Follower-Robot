@@ -15,6 +15,9 @@ BeeLineSensorPro sensor = BeeLineSensorPro(
 LINE_BLACK);
 
 void setup() {
+
+  Serial.begin(9600);
+
   pinMode(rightMotor_ena, OUTPUT);
   pinMode(rightMotor_R, OUTPUT);
   pinMode(rightMotor_L, OUTPUT);
@@ -22,10 +25,14 @@ void setup() {
   pinMode(leftMotor_L, OUTPUT);
   pinMode(leftMotor_enb, OUTPUT);
 
+  for(int i=0;i<300;i++){
+    sensor.calibrate();
+    delay(10);
+  }
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  Serial.println(sensor.readSensor());
 
 }
 
