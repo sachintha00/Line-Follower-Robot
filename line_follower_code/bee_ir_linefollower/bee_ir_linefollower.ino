@@ -25,14 +25,19 @@ void setup() {
   pinMode(leftMotor_L, OUTPUT);
   pinMode(leftMotor_enb, OUTPUT);
 
-  for(int i=0;i<300;i++){
+  for (int i = 0; i < 300; i++) {
     sensor.calibrate();
     delay(10);
   }
 }
 
 void loop() {
-  Serial.println(sensor.readSensor());
+  int err = sensor.readSensor();
+  for(i=0; i<8; i++){
+    Serial.print(sensor.values[i]);
+    Serial.print("\t");
+  }
+  Serial.println(err);
 
 }
 
