@@ -15,7 +15,12 @@ BeeLineSensorPro sensor = BeeLineSensorPro(
 LINE_BLACK);
 
 void setup() {
-  // put your setup code here, to run once:
+  pinMode(rightMotor_ena, OUTPUT);
+  pinMode(rightMotor_R, OUTPUT);
+  pinMode(rightMotor_L, OUTPUT);
+  pinMode(leftMotor_R, OUTPUT);
+  pinMode(leftMotor_L, OUTPUT);
+  pinMode(leftMotor_enb, OUTPUT);
 
 }
 
@@ -30,8 +35,8 @@ void motorControl(int motorSpeed) {
       motorSpeed = 255;
     }
     digitalWrite(rightMotor_R, HIGH);
-    digitalWrite(rightMotor_L,LOW);
-    analogWrite(rightMotor_ena, 255 - M1);
+    digitalWrite(rightMotor_L, LOW);
+    analogWrite(rightMotor_ena, 255 - motorSpeed);
   }
   else {
     if (motorSpeed < -255) {
@@ -39,6 +44,6 @@ void motorControl(int motorSpeed) {
     }
     digitalWrite(leftMotor_R, LOW);
     digitalWrite(leftMotor_L, HIGH);
-    analogWrite(leftMotor_enb, M1 * -1);
+    analogWrite(leftMotor_enb, motorSpeed * -1);
   }
 }
