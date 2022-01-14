@@ -29,6 +29,6 @@ void motorControl(int motor1, int motor2) {
       motor1 = -255;
     }
     digitalWrite(M1, LOW);
-    analogWrite(M1pwm, 255 - M1);
+    analogWrite(M1pwm, M1 * -1);
   }
 }
