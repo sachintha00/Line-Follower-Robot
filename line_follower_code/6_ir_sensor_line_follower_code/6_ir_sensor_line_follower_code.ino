@@ -1,21 +1,21 @@
 /*
              white color = 0
              black color = 1
-             
+
            (-) <----   ----> (+)
- ERROR 100      0 0 0 0 0 0
- ERROR 5        0 0 0 0 0 1
- ERROR 4        0 0 0 0 1 1
- ERROR 3        0 0 0 0 1 0
- ERROR 2        0 0 0 1 1 0
- ERROR 1        0 0 0 1 0 0
- ERROR 0        0 0 1 1 0 0
- ERROR -1       0 0 1 0 0 0
- ERROR -2       0 1 1 0 0 0
- ERROR -3       0 1 0 0 0 0
- ERROR -4       1 1 0 0 0 0
- ERROR -5       1 0 0 0 0 0
- ERROR -100     0 0 0 0 0 0
+  ERROR 100      0 0 0 0 0 0
+  ERROR 5        0 0 0 0 0 1
+  ERROR 4        0 0 0 0 1 1
+  ERROR 3        0 0 0 0 1 0
+  ERROR 2        0 0 0 1 1 0
+  ERROR 1        0 0 0 1 0 0
+  ERROR 0        0 0 1 1 0 0
+  ERROR -1       0 0 1 0 0 0
+  ERROR -2       0 1 1 0 0 0
+  ERROR -3       0 1 0 0 0 0
+  ERROR -4       1 1 0 0 0 0
+  ERROR -5       1 0 0 0 0 0
+  ERROR -100     0 0 0 0 0 0
 
 */
 
@@ -77,20 +77,37 @@ void setup() {
 }
 
 void loop() {
+  readSensorValue();
   if (error == 3 || error == 4 || error == 5) {
-    motorControl(75, 70);
+    motorControl(100, 95);
+    readSensorValue();
   }
   else if (error == 1 || error == 2) {
-    motorControl(75, 70);
+    motorControl(100,95);
+    readSensorValue();
   }
   else if (error == 0) {
-    motorControl(70, 70);
+    delay(10);
+    motorControl(100,100);
+    readSensorValue();
   }
   else if (error == -1 || error == -2) {
-    motorControl(70, 75);
+    motorControl(95,100);
+    readSensorValue();
   }
   else if (error == -3 || error == -4 || error == -5) {
-    motorControl(70, 75);
+    motorControl(95,100);
+    readSensorValue();
+  }
+  else {
+    do {
+      Serial.println(error);
+      readSensorValue();
+      analogWrite(rightMotor_ena, 100);
+      analogWrite(leftMotor_enb, 90);
+      sharpLeftTurn();
+    } while (error != 0);
+    readSensorValue();
   }
 }
 
@@ -177,10 +194,10 @@ void motorControl(int leftSpeed, int rightSpeed) {
   analogWrite(leftMotor_enb, leftMotorSpeed);
   analogWrite(rightMotor_ena, rightMotorSpeed);
 
-  Serial.print("Left Speed = ");
-  Serial.print(leftMotorSpeed);
-  Serial.print("\tRight Speed = ");
-  Serial.println(rightMotorSpeed);
+//  Serial.print("Left Speed = ");
+//  Serial.print(leftMotorSpeed);
+//  Serial.print("\tRight Speed = ");
+//  Serial.println(rightMotorSpeed);
 
   digitalWrite(leftMotor_R, HIGH);
   digitalWrite(leftMotor_L, LOW);
