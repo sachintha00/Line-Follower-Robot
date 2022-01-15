@@ -74,7 +74,7 @@ void setup() {
 }
 
 void loop() {
-  forward(-355, -355);
+  forward(60, 60);
 }
 
 void readSensorValue() {
@@ -168,7 +168,7 @@ void motorControl() {
 
 void forward(int leftSpeed, int rightSpeed) {
   int leftMotorSpeed = constrain(leftSpeed, 0, 255);
-  int rightMotorSpeed = constrain(rightSpeed, 0, 255);
+  int rightMotorSpeed = constrain(rightSpeed + 10, 0, 255);
 
   analogWrite(leftMotor_enb, leftMotorSpeed);
   analogWrite(rightMotor_ena, rightMotorSpeed);

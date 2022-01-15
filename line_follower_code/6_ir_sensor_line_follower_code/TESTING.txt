@@ -1,0 +1,62 @@
+readSensorValue();
+  Serial.println(error);
+  //  if (error == 100 ) { // Make left turn untill it detects straight path
+  //    do {
+  //      Serial.println(error);
+  //      readSensorValue();
+  //      analogWrite(rightMotor_ena, 110);
+  //      analogWrite(leftMotor_enb, 90);
+  //      sharpLeftTurn();
+  //    } while (error != 0);
+  //    Serial.println(error);
+  //  }
+  //  else if (error == 5 || error == 4 || error == 3 || error == 2 || error == 1) { // Make left turn untill it detects straight path
+  //    do {
+  //      Serial.println(error);
+  //      readSensorValue();
+  //      analogWrite(rightMotor_ena, 110);
+  //      analogWrite(leftMotor_enb, 90);
+  //      forward();
+  //    } while (error != 0);
+  //    Serial.println(error);
+  //  }
+  //  else if (error == -5 || error == -4 || error == -3 || error == -2 || error == -1) { // Make left turn untill it detects straight path
+  //    do {
+  //      Serial.println(error);
+  //      readSensorValue();
+  //      analogWrite(rightMotor_ena, 90);
+  //      analogWrite(leftMotor_enb, 110);
+  //      forward();
+  //    } while (error != 0);
+  //    Serial.println(error);
+  //  }
+  //  else {
+  //    //    Serial.println("stop function");
+  //    //    stopBot();
+  //    pidCalculation();
+  //    motorControl();
+  //  }
+  if (error == 3 || error == 4 || error == 5) {
+    forward(75, 70);
+  }
+  else if (error == 1 || error == 2) {
+    forward(75, 70);
+  }
+  else if (error == 0) {
+    forward(70, 70);
+  }
+  else if (error == -1 || error == -2) {
+    forward(70, 75);
+  }
+  else if (error == -3 || error == -4 || error == -5) {
+    forward(70, 75);
+  }
+  else {
+    do {
+      Serial.println(error);
+      readSensorValue();
+      analogWrite(rightMotor_ena, 75);
+      analogWrite(leftMotor_enb, 70);
+      sharpLeftTurn();
+    } while (error != 0);
+  }
