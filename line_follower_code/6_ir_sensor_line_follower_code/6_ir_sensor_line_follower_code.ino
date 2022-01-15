@@ -1,3 +1,20 @@
+/*
+    (-) 0 0 0 0 0 0 (+)
+
+
+
+
+
+
+*/
+
+
+
+
+
+
+
+
 //define 6 ir sensor
 #define sensor1  A0
 #define sensor2  A1
@@ -57,62 +74,7 @@ void setup() {
 }
 
 void loop() {
-  readSensorValue();
-  Serial.println(error);
-  //  if (error == 100 ) { // Make left turn untill it detects straight path
-  //    do {
-  //      Serial.println(error);
-  //      readSensorValue();
-  //      analogWrite(rightMotor_ena, 110);
-  //      analogWrite(leftMotor_enb, 90);
-  //      sharpLeftTurn();
-  //    } while (error != 0);
-  //    Serial.println(error);
-  //  }
-  //  else if (error == 5 || error == 4 || error == 3 || error == 2 || error == 1) { // Make left turn untill it detects straight path
-  //    do {
-  //      Serial.println(error);
-  //      readSensorValue();
-  //      analogWrite(rightMotor_ena, 110);
-  //      analogWrite(leftMotor_enb, 90);
-  //      forward();
-  //    } while (error != 0);
-  //    Serial.println(error);
-  //  }
-  //  else if (error == -5 || error == -4 || error == -3 || error == -2 || error == -1) { // Make left turn untill it detects straight path
-  //    do {
-  //      Serial.println(error);
-  //      readSensorValue();
-  //      analogWrite(rightMotor_ena, 90);
-  //      analogWrite(leftMotor_enb, 110);
-  //      forward();
-  //    } while (error != 0);
-  //    Serial.println(error);
-  //  }
-  //  else {
-  //    //    Serial.println("stop function");
-  //    //    stopBot();
-  //    pidCalculation();
-  //    motorControl();
-  //  }
-  if (error == 1 || error == 2) {
-    analogWrite(leftMotor_enb, 65);
-    analogWrite(rightMotor_ena, 69);
-    forward();
-  }
-  else if (error == 0) {
-    analogWrite(leftMotor_enb, 65);
-    analogWrite(rightMotor_ena, 65);
-    forward();
-  }
-  else if (error == -1 || error == -2) {
-    analogWrite(leftMotor_enb, 69);
-    analogWrite(rightMotor_ena, 65);
-    forward();
-  }
-  else {
-    stopBot();
-  }
+  forward(-355, -355);
 }
 
 void readSensorValue() {
@@ -204,7 +166,18 @@ void motorControl() {
   forward();
 }
 
-void forward() {
+void forward(int leftSpeed, int rightSpeed) {
+  int leftMotorSpeed = constrain(leftSpeed, 0, 255);
+  int rightMotorSpeed = constrain(rightSpeed, 0, 255);
+
+  analogWrite(leftMotor_enb, leftMotorSpeed);
+  analogWrite(rightMotor_ena, rightMotorSpeed);
+
+  Serial.print("Left Speed = ");
+  Serial.print(leftMotorSpeed);
+  Serial.print("\tRight Speed = ");
+  Serial.println(rightMotorSpeed);
+
   digitalWrite(leftMotor_R, HIGH);
   digitalWrite(leftMotor_L, LOW);
 
