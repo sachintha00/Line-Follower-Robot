@@ -1,18 +1,23 @@
 /*
-    (-) 0 0 0 0 0 0 (+)
-
-
-
-
-
+             white color = 0
+             black color = 1
+             
+           (-) <----   ----> (+)
+ ERROR 100      0 0 0 0 0 0
+ ERROR 5        0 0 0 0 0 1
+ ERROR 4        0 0 0 0 1 1
+ ERROR 3        0 0 0 0 1 0
+ ERROR 2        0 0 0 1 1 0
+ ERROR 1        0 0 0 1 0 0
+ ERROR 0        0 0 1 1 0 0
+ ERROR -1       0 0 1 0 0 0
+ ERROR -2       0 1 1 0 0 0
+ ERROR -3       0 1 0 0 0 0
+ ERROR -4       1 1 0 0 0 0
+ ERROR -5       1 0 0 0 0 0
+ ERROR -100     0 0 0 0 0 0
 
 */
-
-
-
-
-
-
 
 
 //define 6 ir sensor
@@ -35,8 +40,6 @@
 void readSensorValue();
 void pidCalculation();
 void motorControl();
-void forward();
-void stopBot();
 
 //motor speed
 int initMotorSpeed = 100;
@@ -74,7 +77,21 @@ void setup() {
 }
 
 void loop() {
-  forward(60, 60);
+  if (error == 3 || error == 4 || error == 5) {
+    motorControl(75, 70);
+  }
+  else if (error == 1 || error == 2) {
+    motorControl(75, 70);
+  }
+  else if (error == 0) {
+    motorControl(70, 70);
+  }
+  else if (error == -1 || error == -2) {
+    motorControl(70, 75);
+  }
+  else if (error == -3 || error == -4 || error == -5) {
+    motorControl(70, 75);
+  }
 }
 
 void readSensorValue() {
@@ -95,7 +112,6 @@ void readSensorValue() {
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 1) {    //0 0 0 0 0 1 --> ERROR = 5
     error = 5;
-    sharpLeftTurn();
   }
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
       senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 1) {    //0 0 0 0 1 1 --> ERROR = 4
@@ -154,19 +170,7 @@ void pidCalculation() {
   previousError = error;
 }
 
-void motorControl() {
-  int leftMotorSpeed = initMotorSpeed - pidValue;
-  int rightMotorSpeed = initMotorSpeed + pidValue;
-
-  leftMotorSpeed = constrain(leftMotorSpeed, 0, 255);
-  rightMotorSpeed = constrain(rightMotorSpeed, 0, 255);
-
-  analogWrite(leftMotor_enb, leftMotorSpeed - 30);
-  analogWrite(rightMotor_ena, rightMotorSpeed);
-  forward();
-}
-
-void forward(int leftSpeed, int rightSpeed) {
+void motorControl(int leftSpeed, int rightSpeed) {
   int leftMotorSpeed = constrain(leftSpeed, 0, 255);
   int rightMotorSpeed = constrain(rightSpeed + 10, 0, 255);
 
@@ -197,11 +201,4 @@ void sharpRightTurn() {
 
   digitalWrite(rightMotor_R, LOW);
   digitalWrite(rightMotor_L, HIGH);
-}
-void stopBot() {
-  digitalWrite(leftMotor_R, LOW);
-  digitalWrite(leftMotor_L, LOW);
-
-  digitalWrite(rightMotor_R, LOW);
-  digitalWrite(rightMotor_L, LOW);
 }
