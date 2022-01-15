@@ -28,9 +28,9 @@ int initMotorSpeed = 100;
 int senvalues[6] = {0, 0, 0, 0, 0, 0};
 
 //pid constants
-float kp = 25;
+float kp = 0;
 float ki = 0;
-float kd = 15;
+float kd = 0;
 
 float error = 0 , p = 0, i = 0, d = 0, pidValue = 0;
 float previousError = 0, previousI = 0;
@@ -95,9 +95,9 @@ void loop() {
   //    pidCalculation();
   //    motorControl();
   //  }
-  if (error == 1) {
-    analogWrite(leftMotor_enb, 69);
-    analogWrite(rightMotor_ena, 65);
+  if (error == 1 || error == 2) {
+    analogWrite(leftMotor_enb, 65);
+    analogWrite(rightMotor_ena, 69);
     forward();
   }
   else if (error == 0) {
@@ -105,12 +105,12 @@ void loop() {
     analogWrite(rightMotor_ena, 65);
     forward();
   }
-  if (error == -1) {
-    analogWrite(leftMotor_enb, 65);
-    analogWrite(rightMotor_ena, 69);
+  else if (error == -1 || error == -2) {
+    analogWrite(leftMotor_enb, 69);
+    analogWrite(rightMotor_ena, 65);
     forward();
   }
-  else{
+  else {
     stopBot();
   }
 }
