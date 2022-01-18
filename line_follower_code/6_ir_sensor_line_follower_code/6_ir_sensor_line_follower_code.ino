@@ -77,32 +77,52 @@ void setup() {
 }
 
 void loop() {
+
   readSensorValue();
   Serial.println(error);
-  if (error == 3 || error == 4 || error == 5) {
-    //    motorControl(100, 95);
+  if (error == 5) {
+    motorControl(85, 0);
   }
-  else if (error == 1 || error == 2) {
-    //    motorControl(100,95);
+  else if (error == 4) {
+    motorControl(85, 0);
+  }
+  else if (error == 3) {
+    motorControl(80, 75);
+  }
+  else if (error == 2) {
+    motorControl(85, 75);
+  }
+  else if (error == 1) {
+    motorControl(85, 75);
   }
   else if (error == 0) {
-    //    motorControl(100,100);
+    motorControl(75, 75);
   }
-  else if (error == -1 || error == -2) {
-    //    motorControl(95,100);
+  else if (error == -1) {
+    motorControl(75, 85);
   }
-  else if (error == -3 || error == -4 || error == -5) {
-    //    motorControl(95,100);
+  else if (error == -2) {
+    motorControl(75, 85);
+  }
+  else if (error == -3) {
+    motorControl(75, 80);
+  }
+  else if (error == -4) {
+    motorControl(0, 85);
+  }
+  else if (error == -5) {
+    motorControl(0, 85);
   }
   else {
     do {
       Serial.println(error);
       readSensorValue();
-      //      analogWrite(rightMotor_ena, 100);
-      //      analogWrite(leftMotor_enb, 90);
+      analogWrite(rightMotor_ena, 85);
+      analogWrite(leftMotor_enb, 80);
       sharpLeftTurn();
-    } while (error != -5);
+    } while (error != 0);
     readSensorValue();
+    motorControl(0, 0);
   }
 }
 
@@ -118,7 +138,7 @@ void readSensorValue() {
   //black color = 1
 
   if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 0 0 0 0 --> ERROR = 100
+      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {         //0 0 0 0 0 0 --> ERROR = 100
     error = 100;
   }
   else if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
