@@ -106,7 +106,7 @@ void loop() {
       analogWrite(rightMotor_ena, 100);
       analogWrite(leftMotor_enb, 90);
       sharpLeftTurn();
-    } while (error != 0);
+    } while (error != -5);
     readSensorValue();
   }
 }
