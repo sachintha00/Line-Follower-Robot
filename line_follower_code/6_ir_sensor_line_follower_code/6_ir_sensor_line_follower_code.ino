@@ -78,33 +78,28 @@ void setup() {
 
 void loop() {
   readSensorValue();
+  Serial.println(error);
   if (error == 3 || error == 4 || error == 5) {
-    motorControl(100, 95);
-    readSensorValue();
+    //    motorControl(100, 95);
   }
   else if (error == 1 || error == 2) {
-    motorControl(100,95);
-    readSensorValue();
+    //    motorControl(100,95);
   }
   else if (error == 0) {
-    delay(10);
-    motorControl(100,100);
-    readSensorValue();
+    //    motorControl(100,100);
   }
   else if (error == -1 || error == -2) {
-    motorControl(95,100);
-    readSensorValue();
+    //    motorControl(95,100);
   }
   else if (error == -3 || error == -4 || error == -5) {
-    motorControl(95,100);
-    readSensorValue();
+    //    motorControl(95,100);
   }
   else {
     do {
       Serial.println(error);
       readSensorValue();
-      analogWrite(rightMotor_ena, 100);
-      analogWrite(leftMotor_enb, 90);
+      //      analogWrite(rightMotor_ena, 100);
+      //      analogWrite(leftMotor_enb, 90);
       sharpLeftTurn();
     } while (error != -5);
     readSensorValue();
@@ -126,52 +121,52 @@ void readSensorValue() {
       senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 0 0 0 0 --> ERROR = 100
     error = 100;
   }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 1) {    //0 0 0 0 0 1 --> ERROR = 5
+  else if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+           senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 1) {    //0 0 0 0 0 1 --> ERROR = 5
     error = 5;
   }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 1) {    //0 0 0 0 1 1 --> ERROR = 4
+  else if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+           senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 1) {    //0 0 0 0 1 1 --> ERROR = 4
     error = 4;
   }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 0 1 0 --> ERROR = 3
+  else if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+           senvalues[3] == 0 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 0 1 0 --> ERROR = 3
     error = 3;
   }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 1 1 0 --> ERROR = 2
+  else if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+           senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 0) {    //0 0 0 1 1 0 --> ERROR = 2
     error = 2;
   }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 0 1 0 0 --> ERROR = 1
+  else if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 0 &&
+           senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 0 1 0 0 --> ERROR = 1
     error = 1;
   }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
-      senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 1 0 0 --> ERROR = 0
+  else if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
+           senvalues[3] == 1 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 1 0 0 --> ERROR = 0
     error = 0;
   }
-  if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 0 0 0 --> ERROR = -1
+  else if (senvalues[0] == 0 && senvalues[1] == 0 && senvalues[2] == 1 &&
+           senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 0 1 0 0 0 --> ERROR = -1
     error = -1;
   }
-  if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 1 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 1 0 0 0 --> ERROR = -2
+  else if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 1 &&
+           senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 1 0 0 0 --> ERROR = -2
     error = -2;
   }
-  if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 0 0 0 0 --> ERROR = -3
+  else if (senvalues[0] == 0 && senvalues[1] == 1 && senvalues[2] == 0 &&
+           senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //0 1 0 0 0 0 --> ERROR = -3
     error = -3;
   }
-  if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 1 0 0 0 0 --> ERROR = -4
+  else if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 0 &&
+           senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 1 0 0 0 0 --> ERROR = -4
     error = -4;
   }
-  if (senvalues[0] == 1 && senvalues[1] == 0 && senvalues[2] == 0 &&
-      senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 0 0 0 0 0 --> ERROR = -5
+  else if (senvalues[0] == 1 && senvalues[1] == 0 && senvalues[2] == 0 &&
+           senvalues[3] == 0 && senvalues[4] == 0 && senvalues[5] == 0) {    //1 0 0 0 0 0 --> ERROR = -5
     error = -5;
   }
-  if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 1 &&
-      senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 1) {    //1 1 1 1 1 1 --> ERROR = -100
+  else if (senvalues[0] == 1 && senvalues[1] == 1 && senvalues[2] == 1 &&
+           senvalues[3] == 1 && senvalues[4] == 1 && senvalues[5] == 1) {    //1 1 1 1 1 1 --> ERROR = -100
     error = -100;
   }
 }
@@ -194,10 +189,10 @@ void motorControl(int leftSpeed, int rightSpeed) {
   analogWrite(leftMotor_enb, leftMotorSpeed);
   analogWrite(rightMotor_ena, rightMotorSpeed);
 
-//  Serial.print("Left Speed = ");
-//  Serial.print(leftMotorSpeed);
-//  Serial.print("\tRight Speed = ");
-//  Serial.println(rightMotorSpeed);
+  //  Serial.print("Left Speed = ");
+  //  Serial.print(leftMotorSpeed);
+  //  Serial.print("\tRight Speed = ");
+  //  Serial.println(rightMotorSpeed);
 
   digitalWrite(leftMotor_R, HIGH);
   digitalWrite(leftMotor_L, LOW);
