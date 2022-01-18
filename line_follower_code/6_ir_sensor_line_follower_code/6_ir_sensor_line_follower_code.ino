@@ -84,7 +84,7 @@ void loop() {
     motorControl(85, 0);
   }
   else if (error == 4) {
-    motorControl(85, 0);
+    motorControl(80, 0);
   }
   else if (error == 3) {
     motorControl(80, 75);
@@ -108,7 +108,7 @@ void loop() {
     motorControl(75, 80);
   }
   else if (error == -4) {
-    motorControl(0, 85);
+    motorControl(0, 80);
   }
   else if (error == -5) {
     motorControl(0, 85);
